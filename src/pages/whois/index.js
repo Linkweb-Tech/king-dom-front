@@ -4,12 +4,12 @@ import Grid from '@mui/material/Grid'
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-import FormLayoutsBasic from 'src/views/form-layouts/FormLayoutsBasic'
+import FormLayoutsWhois from 'src/views/form-layouts/FormLayoutsBasic'
 
 const Whois = () => {
   return (
     <ApexChartWrapper>
-      <FormLayoutsBasic />
+      <FormLayoutsWhois />
     </ApexChartWrapper>
   )
 }
