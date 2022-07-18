@@ -31,29 +31,7 @@ const FormLayoutsBasic = () => {
   const [keywords, setKeywords] = useState('')
   const [fetchedData, setFetchedData] = useState([])
   const [isWhoisFetched, setisWhoisFetched] = useState(false)
-  //const isWhoisFetched = useRef(false)
-
-  // async function fetchData() {
-    
-  //   //const  data  = await fetch(`https://localhost:8000/whois?domain=${keywords}`);
-  //   const request = await axios.post(
-  //     `https://localhost:8000/whois?domain=${keywords}`
-  //   )
-
-  //     console.log(fetchedData)
-  //   if(fetchedData && fetchedData.length != 0) {
-  //     setFetchedData(fetchedData => [...fetchedData, request.data])
-  //   }  else {
-  //     setFetchedData(fetchedData => [...fetchedData, request.data])
-  //     //setisWhoisFetched(true) 
-      
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   console.log('UseEffect')
-  // }, [isWhoisFetched])
-
+  
   const fetchData = useCallback(async (keywords) => {
 
     let response = await axios.post(
@@ -63,10 +41,6 @@ const FormLayoutsBasic = () => {
       setFetchedData(fetchedData => [response.data, ...fetchedData])
   }, [])
 
-  // useEffect(() => {
-  //   fetchData(keywords)
-  // }, [fetchData])
-
   const handleSubmit = e => {
     e.preventDefault()
     fetchData(keywords)
@@ -74,7 +48,7 @@ const FormLayoutsBasic = () => {
 
   const clearWhois = () => {
     setisWhoisFetched(false)  
-    setFetchedData({})
+    setFetchedData([])
   }
   console.log(fetchedData)
   return (
@@ -130,21 +104,11 @@ const FormLayoutsBasic = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                
-      {              fetchedData.map(row => (
-                      <DomainListing domain={row} />
-                    ))}
-                
-{/*                   
-                {
-                  (fetchedData.length > 1) &&
-                    fetchedData.map(row => (
-                      <DomainListing domain={row} />
-                    ))
-                } */}
-
-                
-                 
+                { 
+                  fetchedData.map(row => (
+                    <DomainListing domain={row} />
+                  ))
+                }
               </TableBody>
             </Table>
           </TableContainer>
