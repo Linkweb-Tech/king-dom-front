@@ -20,6 +20,7 @@ import ScrollToTop from 'src/@core/components/scroll-to-top'
 
 // ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import { ToastContainer } from 'react-toastify'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',

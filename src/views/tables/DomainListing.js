@@ -3,6 +3,10 @@ import TableCell from '@mui/material/TableCell'
 import { Box, Typography } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import AddTaskIcon from '@mui/icons-material/AddTask';
+import { useCallback, useState } from 'react';
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DomainListing = (props) => {
     const statusObj = {
@@ -12,9 +16,30 @@ const DomainListing = (props) => {
         resigned: { color: 'warning' },
         professional: { color: 'success' }
     }
-    console.log(props.domain)
-    
-    
+
+    const [display, setDisplay] = useState(true)
+
+    const fetchData = useCallback(async (domain) => {
+        let response = await axios.post(
+            `https://localhost:8000/api/domains`, 
+            domain
+            )
+            .then((response) =>{
+                if(response.status === 201){
+                    console.log('201')
+                    notify()
+                }
+            })
+            setDisplay(display => (!display))
+            console.log(display)
+          
+    }, [])
+
+    const handleStoreDomain = (domain) => {
+        fetchData(domain)
+    }
+    const notify = () => toast("Wow so easy !"); 
+
     return (
         <TableRow hover key={props.domain.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
             <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
@@ -39,7 +64,10 @@ const DomainListing = (props) => {
             </TableCell>
             <TableCell>{props.domain.lastUpdate}</TableCell>
             <TableCell>{props.domain.expiryDate}</TableCell>
-            <TableCell><AddTaskIcon/></TableCell> 
+            <TableCell>  
+                {display && <AddTaskIcon classList={display} onClick={(e) => handleStoreDomain(props.domain)}/>}
+            </TableCell> 
+            <ToastContainer/>
         </TableRow>
     )
 }
