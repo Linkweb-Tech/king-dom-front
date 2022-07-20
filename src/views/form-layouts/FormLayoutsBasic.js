@@ -39,11 +39,13 @@ const FormLayoutsBasic = () => {
       )
       //setFetchedData(fetchedData.concat(response.data))
       setFetchedData(fetchedData => [response.data, ...fetchedData])
+      setKeywords('')
   }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
     fetchData(keywords)
+ 
   } 
 
   const clearWhois = () => {
@@ -64,6 +66,7 @@ const FormLayoutsBasic = () => {
                 label='Domaine' 
                 placeholder='Saisir le nom de domaine' 
                 onChange={e => setKeywords(e.target.value)}
+                value={keywords}
               />
             </Grid>
 

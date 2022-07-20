@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConsoleNetworkOutline } from 'mdi-material-ui';
 
 const DomainListing = (props) => {
     const statusObj = {
@@ -16,9 +17,9 @@ const DomainListing = (props) => {
         resigned: { color: 'warning' },
         professional: { color: 'success' }
     }
-
+    
     const [display, setDisplay] = useState(true)
-
+    
     const fetchData = useCallback(async (domain) => {
         let response = await axios.post(
             `https://localhost:8000/api/domains`, 
@@ -31,14 +32,15 @@ const DomainListing = (props) => {
                 }
             })
             setDisplay(display => (!display))
-            console.log(display)
+            props.domain.display = display
+            console.log(props.domain.display)
           
     }, [])
 
     const handleStoreDomain = (domain) => {
         fetchData(domain)
     }
-    const notify = () => toast("Wow so easy !"); 
+    const notify = () => toast("Le domaine a bien été sauvegardé !"); 
 
     return (
         <TableRow hover key={props.domain.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
