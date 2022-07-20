@@ -100,7 +100,7 @@ const DashboardTable = () => {
 
   useEffect(() => {
     setLoading(true)
-    fetch('https://localhost:8000/api/domains')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
