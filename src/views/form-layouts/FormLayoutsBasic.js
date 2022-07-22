@@ -33,7 +33,7 @@ const FormLayoutsBasic = () => {
   const [isWhoisFetched, setisWhoisFetched] = useState(false)
   
   const fetchData = useCallback(async (keywords) => {
-    console.log(process.env.NEXT_PUBLIC_API_URL)
+    
     let response = await axios.post(
        `${process.env.NEXT_PUBLIC_API_URL}whois?domain=${keywords}`
       )
@@ -52,7 +52,8 @@ const FormLayoutsBasic = () => {
     setisWhoisFetched(false)  
     setFetchedData([])
   }
-  console.log(fetchedData)
+
+
   return (
     <Card>
       <CardHeader title='Rechercher un domaines' titleTypographyProps={{ variant: 'h6' }} />
