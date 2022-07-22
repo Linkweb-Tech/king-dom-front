@@ -33,7 +33,6 @@ const DomainListing = (props) => {
             })
             setDisplay(display => (!display))
             props.domain.display = display
-          
     }, [])
 
     const handleStoreDomain = (domain) => {
