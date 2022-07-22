@@ -22,7 +22,7 @@ const DomainListing = (props) => {
     
     const fetchData = useCallback(async (domain) => {
         let response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/domains`, 
+            `${process.env.NEXT_PUBLIC_API_URL}api/domains`, 
             domain
             )
             .then((response) =>{
