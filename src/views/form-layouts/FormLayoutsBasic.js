@@ -21,7 +21,7 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 
-import DomainListing from '../tables/DomainListing'
+import DomainListingAdd from '../tables/DomainListingAdd'
 
 
 const FormLayoutsBasic = () => {
@@ -110,7 +110,7 @@ const FormLayoutsBasic = () => {
               <TableBody>
                 { 
                   fetchedData.map(row => (
-                    <DomainListing domain={row} />
+                    <DomainListingAdd domain={row} />
                   ))
                 }
               </TableBody>

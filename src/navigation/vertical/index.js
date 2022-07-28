@@ -8,7 +8,7 @@ const navigation = () => {
     {
       title: 'Dashboard',
       icon: HomeOutline,
-      path: '/'
+      path: '/dashboard'
     },
     {
       sectionTitle: 'Domaines'
@@ -16,13 +16,13 @@ const navigation = () => {
     {
       title: 'Liste',
       icon: Login,
-      path: '/pages/login',
+      path: '/dashboard/listing',
       openInNewTab: false
     },
     {
       title: 'Ajouter',
       icon: AccountPlusOutline,
-      path: '/whois',
+      path: '/dashboard/whois',
       openInNewTab: false
     }
   ]

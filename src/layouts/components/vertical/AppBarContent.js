@@ -14,12 +14,17 @@ import ModeToggler from 'src/@core/layouts/components/shared-components/ModeTogg
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
 
+// ** Next Auth
+import { useSession } from "next-auth/react"
+
 const AppBarContent = props => {
   // ** Props
   const { hidden, settings, saveSettings, toggleNavVisibility } = props
 
   // ** Hook
   const hiddenSm = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const { data: session, status } = useSession()
+
 
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -48,17 +53,13 @@ const AppBarContent = props => {
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         {hiddenSm ? null : (
           <Box
-            component='a'
-            target='_blank'
+            component='p'
             rel='noreferrer'
             sx={{ mr: 4, display: 'flex' }}
-            href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free'
           >
-            <img
-              height={24}
-              alt='github stars'
-              src='https://img.shields.io/github/stars/themeselection/materio-mui-react-nextjs-admin-template-free?style=social'
-            />
+            {
+              (session) && <p>Bienvenu à toi, {session.user.name} </p>
+            }
           </Box>
         )}
         <ModeToggler settings={settings} saveSettings={saveSettings} />

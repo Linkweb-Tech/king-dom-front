@@ -2,14 +2,15 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import { Box, Typography } from '@mui/material'
 import Chip from '@mui/material/Chip'
-import AddTaskIcon from '@mui/icons-material/AddTask';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useCallback, useState } from 'react';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConsoleNetworkOutline } from 'mdi-material-ui';
 
-const DomainListing = (props) => {
+
+const DomainListingRemove = (props) => {
     const statusObj = {
         true: { color: 'info' },
         false: { color: 'error' },
@@ -21,10 +22,8 @@ const DomainListing = (props) => {
     const [display, setDisplay] = useState(true)
     
     const fetchData = useCallback(async (domain) => {
-        let response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}api/domains`, 
-            domain
-            )
+        let response = await axios.delete(
+            `${process.env.NEXT_PUBLIC_API_URL}api/domains/${domain.id}`)
             .then((response) =>{
                 if(response.status === 201){
                     console.log('201')
@@ -39,9 +38,9 @@ const DomainListing = (props) => {
         fetchData(domain)
     }
     const notify = () => toast("Le domaine a bien été sauvegardé !"); 
-
+    console.log(props)
     return (
-        <TableRow hover key={props.domain.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+        <TableRow hover data-id={props.domain.id} key={props.domain.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
             <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{props.domain.name}</Typography>
@@ -65,7 +64,7 @@ const DomainListing = (props) => {
             <TableCell>{props.domain.lastUpdate}</TableCell>
             <TableCell>{props.domain.expiryDate}</TableCell>
             <TableCell>  
-                {display && <AddTaskIcon classList={display} onClick={(e) => handleStoreDomain(props.domain)}/>}
+                {display && <DeleteForeverIcon classList={display} onClick={(e) => handleStoreDomain(props.domain)}/>}
             </TableCell> 
             <ToastContainer/>
         </TableRow>
@@ -73,4 +72,4 @@ const DomainListing = (props) => {
 }
 
 
-export default DomainListing
+export default DomainListingRemove
