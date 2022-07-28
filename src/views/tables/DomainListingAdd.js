@@ -67,7 +67,17 @@ const DomainListingAdd = (props) => {
             <TableCell>  
                 {display && <AddTaskIcon classList={display} onClick={(e) => handleStoreDomain(props.domain)}/>}
             </TableCell> 
-            <ToastContainer/>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </TableRow>
     )
 }

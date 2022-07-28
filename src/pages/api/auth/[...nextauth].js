@@ -10,7 +10,7 @@ export default NextAuth({
         async authorize(credentials, req) {
           // Add logic here to look up the user from the credentials supplied
           let user = ''
-          if(req.body.email === "nicolas.candelon@linkweb.fr" && req.body.password === "aaaa") {
+          if(req.body.email === "contact@linkweb.fr" && req.body.password === "aE5!kE@82o2x") {
             user = { id: 1, name: "Maître du monde", email: "jsmith@example.com" }
           }
     

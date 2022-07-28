@@ -24,6 +24,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
@@ -67,6 +69,8 @@ const LoginPage = () => {
     showPassword: false
   })
 
+  const [email, setEmail] = useState('')
+
   // ** Hook
   const theme = useTheme()
   const router = useRouter()
@@ -83,12 +87,13 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
-
+  const notify = () => toast("Non non non tu n'es pas invité  !!!");
 
   const  handleLogin = async (e) => {
-    console.log('submit')
-    const email = 'nicolas.candelon@linkweb.fr'
-    const password = 'aaaa'
+
+    const password = values.password
+    console.log(password)
+    console.log(email)
     const res = await signIn('credentials',
       {
         email,
@@ -97,7 +102,7 @@ const LoginPage = () => {
         redirect: false,
       }
     )
-    if (res?.error) console.log(res.error)
+    if (res?.error) notify()
     if (res.url) router.push(res.url);
     
   }
@@ -181,12 +186,20 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 👋🏻
+              Bienvenue sur {themeConfig.templateName}! 👋🏻
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>Merci de vous connecter</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+            <TextField 
+              autoFocus 
+              fullWidth  
+              id='email' 
+              label='Email' 
+              value={email}
+              sx={{ marginBottom: 4 }} 
+              onChange={(e) => {setEmail(e.target.value)}}
+            />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
@@ -265,6 +278,7 @@ const LoginPage = () => {
         </CardContent>
       </Card>
       <FooterIllustrationsV1 />
+      <ToastContainer/>
     </Box>
   )
 }
