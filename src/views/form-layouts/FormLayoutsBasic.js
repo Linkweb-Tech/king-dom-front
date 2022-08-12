@@ -53,6 +53,14 @@ const FormLayoutsBasic = () => {
     setFetchedData([])
   }
 
+  const handleAddItem = (itemName) => {
+    
+    setFetchedData(
+      fetchedData.filter((item) => {
+        return item.name != itemName
+      })
+    )
+  }
 
   return (
     <Card>
@@ -110,7 +118,7 @@ const FormLayoutsBasic = () => {
               <TableBody>
                 { 
                   fetchedData.map(row => (
-                    <DomainListingAdd domain={row} />
+                    <DomainListingAdd domain={row} handleAddItem={handleAddItem} />
                   ))
                 }
               </TableBody>

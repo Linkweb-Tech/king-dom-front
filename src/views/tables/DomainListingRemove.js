@@ -25,8 +25,8 @@ const DomainListingRemove = (props) => {
         let response = await axios.delete(
             `${process.env.NEXT_PUBLIC_API_URL}api/domains/${domain.id}`)
             .then((response) =>{
-                if(response.status === 201){
-                    console.log('201')
+                if(response.status === 204){
+                    console.log('204')
                     notify()
                 }
             })
@@ -34,10 +34,11 @@ const DomainListingRemove = (props) => {
             props.domain.display = display
     }, [])
 
-    const handleStoreDomain = (domain) => {
+    const handleRemoveDomain = (domain) => {
         fetchData(domain)
+        props.handleRemoveItem(props.domain.id)
     }
-    const notify = () => toast("Le domaine a bien été sauvegardé !"); 
+    const notify = () => toast("Le domaine a bien été retiré !"); 
     console.log(props)
     return (
         <TableRow hover data-id={props.domain.id} key={props.domain.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
@@ -64,7 +65,7 @@ const DomainListingRemove = (props) => {
             <TableCell>{props.domain.lastUpdate}</TableCell>
             <TableCell>{props.domain.expiryDate}</TableCell>
             <TableCell>  
-                {display && <DeleteForeverIcon classList={display} onClick={(e) => handleStoreDomain(props.domain)}/>}
+                {display && <DeleteForeverIcon classList={display} onClick={(e) => handleRemoveDomain(props.domain)}/>}
             </TableCell> 
             <ToastContainer/>
         </TableRow>

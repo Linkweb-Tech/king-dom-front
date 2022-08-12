@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import { useState, useEffect } from 'react'
 import DomainListingRemove from '../tables/DomainListingRemove'
+import { ConsoleNetworkOutline } from 'mdi-material-ui'
+import { CollectionsOutlined } from '@mui/icons-material'
 
 
 const statusObj = {
@@ -23,10 +25,10 @@ const statusObj = {
 
 const TableListing = () => {
   const [data, setData] = useState(null)
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoading(true)
+    //setLoading(true)
     fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains`)
       .then(res => res.json())
       .then(data => {
@@ -34,7 +36,15 @@ const TableListing = () => {
         setData(data['hydra:member'])
         setLoading(false)
       })
-  }, [])
+  }, [setLoading])
+
+  const handleRemoveItem = (itemID) => {
+    setData(
+      data.filter((item) => {
+        return item.id != itemID
+      })
+    )
+  }
 
   if (isLoading) return <p>Loading...</p>
   if (!data) return <p>No profile data</p>
@@ -57,7 +67,7 @@ const TableListing = () => {
           <TableBody>
             { 
               data.map(row => (
-                <DomainListingRemove domain={row} />
+                <DomainListingRemove domain={row} handleRemoveItem={handleRemoveItem} />
               ))
             }
           </TableBody>

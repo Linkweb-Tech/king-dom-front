@@ -17,6 +17,9 @@ const DomainListingAdd = (props) => {
         resigned: { color: 'warning' },
         professional: { color: 'success' }
     }
+
+    props.domain.isSnapped = false
+    props.domain.isOwned = false
     
     const [display, setDisplay] = useState(true)
     
@@ -37,6 +40,7 @@ const DomainListingAdd = (props) => {
 
     const handleStoreDomain = (domain) => {
         fetchData(domain)
+        props.handleAddItem(props.domain.name)
     }
     const notify = () => toast("Le domaine a bien été sauvegardé !"); 
 
