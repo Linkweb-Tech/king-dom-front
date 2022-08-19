@@ -14,9 +14,15 @@ const navigation = () => {
       sectionTitle: 'Domaines'
     },
     {
-      title: 'Liste',
+      title: 'Attente snap',
       icon: Login,
       path: '/dashboard/listing',
+      openInNewTab: false
+    },
+    {
+      title: 'Achetés',
+      icon: Login,
+      path: '/dashboard/nos-domaines',
       openInNewTab: false
     },
     {

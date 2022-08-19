@@ -23,13 +23,22 @@ const statusObj = {
   professional: { color: 'success' }
 }
 
-const TableListing = () => {
+const TableListing = (props) => {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(true)
-
+  let filter = ''
+  switch (props.domainType) {
+    case 'isOwned':
+      filter = "?isOwned=true"
+      break;
+  
+    default:
+      break;
+  }
+  console.log(`${process.env.NEXT_PUBLIC_API_URL}api/domains${filter}`)
   useEffect(() => {
     //setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains${filter}`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
