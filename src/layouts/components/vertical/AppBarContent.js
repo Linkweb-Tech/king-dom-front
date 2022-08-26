@@ -52,11 +52,7 @@ const AppBarContent = props => {
       </Box>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         {hiddenSm ? null : (
-          <Box
-            component='p'
-            rel='noreferrer'
-            sx={{ mr: 4, display: 'flex' }}
-          >
+          <Box sx={{ mr: 4, display: 'flex' }}>
             {
               (session) && <p>Bienvenu à toi, {session.user.name} </p>
             }

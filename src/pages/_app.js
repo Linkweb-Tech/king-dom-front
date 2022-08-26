@@ -31,6 +31,9 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 import '../../styles/globals.css'
 import { ConsoleNetworkOutline } from 'mdi-material-ui'
 
+import moment from 'moment-timezone';
+import 'moment/locale/fr';
+
 const clientSideEmotionCache = createEmotionCache()
 
 // ** Pace Loader
@@ -54,6 +57,9 @@ const App = props => {
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
   const { asPath, pathname } = useRouter();
 
+  // Set moment timezone & local globally
+  moment.tz.setDefault('Europe/Paris');
+  moment.locale('fr');
 
   return (
     <CacheProvider value={emotionCache}>

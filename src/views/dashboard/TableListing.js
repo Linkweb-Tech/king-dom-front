@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react'
 import DomainListingRemove from '../tables/DomainListingRemove'
 import { ConsoleNetworkOutline } from 'mdi-material-ui'
 import { CollectionsOutlined } from '@mui/icons-material'
+import fetchOptions from 'src/configs/fetchOptions'
 
 
 const statusObj = {
@@ -38,7 +39,7 @@ const TableListing = (props) => {
   console.log(`${process.env.NEXT_APP_API_URL}api/domains${filter}`)
   useEffect(() => {
     //setLoading(true)
-    fetch(`${process.env.NEXT_APP_API_URL}api/domains${filter}`)
+    fetch(`${process.env.NEXT_APP_API_URL}api/domains${filter}`, fetchOptions)
       .then(res => res.json())
       .then(data => {
         console.log(data)

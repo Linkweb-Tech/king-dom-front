@@ -92,8 +92,6 @@ const LoginPage = () => {
   const  handleLogin = async (e) => {
 
     const password = values.password
-    console.log(password)
-    console.log(email)
     const res = await signIn('credentials',
       {
         email,
