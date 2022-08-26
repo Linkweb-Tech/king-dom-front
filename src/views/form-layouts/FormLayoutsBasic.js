@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import axios from 'axios'
 
 // ** MUI Imports
@@ -9,11 +9,8 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
-import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-
-import Chip from '@mui/material/Chip'
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
@@ -22,39 +19,30 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 
 import DomainListingAdd from '../tables/DomainListingAdd'
-
+import axiosOptions from 'src/configs/axiosOptions'
 
 const FormLayoutsBasic = () => {
-  // ** States
-
-  
-  const [keywords, setKeywords] = useState('')
+  const [domainName, setDomainName] = useState('');
   const [fetchedData, setFetchedData] = useState([])
-  const [isWhoisFetched, setisWhoisFetched] = useState(false)
-  
-  const fetchData = useCallback(async (keywords) => {
-    
-    let response = await axios.post(
-       `${process.env.NEXT_APP_API_URL}whois?domain=${keywords}`
-      )
-      //setFetchedData(fetchedData.concat(response.data))
-      setFetchedData(fetchedData => [response.data, ...fetchedData])
-      setKeywords('')
+
+  const fetchData = useCallback(async (domainName) => {
+    let response = await axios.get(`${process.env.NEXT_APP_API_URL}api/domains/whois?domainName=${domainName}`, axiosOptions)
+    setFetchedData(fetchedData => [{ ...response.data.response.data, name: domainName }, ...fetchedData])
+    setDomainName('')
   }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
-    fetchData(keywords)
- 
-  } 
+    if ('' !== domainName) {
+      fetchData(domainName)
+    }
+  }
 
   const clearWhois = () => {
-    setisWhoisFetched(false)  
     setFetchedData([])
   }
 
   const handleAddItem = (itemName) => {
-    
     setFetchedData(
       fetchedData.filter((item) => {
         return item.name != itemName
@@ -69,13 +57,13 @@ const FormLayoutsBasic = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={5}>
             <Grid item xs={12}>
-              <TextField 
-                name='domain' 
-                fullWidth 
-                label='Domaine' 
-                placeholder='Saisir le nom de domaine' 
-                onChange={e => setKeywords(e.target.value)}
-                value={keywords}
+              <TextField
+                name='domainName'
+                fullWidth
+                label='Nom de domaine'
+                placeholder='Saisir le nom de domaine'
+                onChange={e => setDomainName(e.target.value)}
+                value={domainName}
               />
             </Grid>
 
@@ -107,18 +95,17 @@ const FormLayoutsBasic = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Nom</TableCell>
-                  <TableCell>Statut</TableCell>
-                  <TableCell>Heure de connection</TableCell>
-                  <TableCell>Verrouillé</TableCell>
-                  <TableCell>Dernière MAJ</TableCell>
+                  <TableCell>Registrar</TableCell>
                   <TableCell>Date d'expiration</TableCell>
+                  <TableCell>Date de lancement</TableCell>
+                  <TableCell>Dernière mise à jour</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                { 
-                  fetchedData.map(row => (
-                    <DomainListingAdd domain={row} handleAddItem={handleAddItem} />
+                {
+                  fetchedData.map((row, index) => (
+                    <DomainListingAdd key={index} domain={row} handleAddItem={handleAddItem} />
                   ))
                 }
               </TableBody>

@@ -14,7 +14,7 @@ const navigation = () => {
       sectionTitle: 'Domaines'
     },
     {
-      title: 'Attente snap',
+      title: 'Perdus',
       icon: Login,
       path: '/dashboard/listing',
       openInNewTab: false

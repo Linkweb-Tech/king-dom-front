@@ -40,7 +40,7 @@ const Listing = () => {
           <StatisticsCard />
         </Grid>
         <Grid item xs={12}>
-          <TableListing domainType='' />
+          <TableListing domainType='isLost' />
         </Grid>
       </Grid>
     </ApexChartWrapper>

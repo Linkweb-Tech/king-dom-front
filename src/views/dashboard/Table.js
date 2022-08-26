@@ -1,4 +1,5 @@
 // ** MUI Imports
+import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
@@ -10,21 +11,13 @@ import { useState, useEffect } from 'react'
 import fetchOptions from 'src/configs/fetchOptions'
 import moment from 'moment-timezone'
 
-const statusObj = {
-  true: { color: 'info' },
-  false: { color: 'error' },
-  current: { color: 'primary' },
-  resigned: { color: 'warning' },
-  professional: { color: 'success' }
-}
-
 const DashboardTable = () => {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    fetch(`${process.env.NEXT_APP_API_URL}api/domains?attemptMade=false`, fetchOptions)
+    fetch(`${process.env.NEXT_APP_API_URL}api/domains?attemptMade=false&launchDate=ASC`, fetchOptions)
       .then(res => res.json())
       .then(data => {
         setData(data.response.data)
@@ -52,12 +45,14 @@ const DashboardTable = () => {
             {
               data.map((row, index) => (
                 <TableRow hover key={index} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                  <TableCell sx={{ fontWeight: 'bold' }}>{row.name}</TableCell>
+                  <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                      <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography>
+                  </TableCell>
                   <TableCell>{row.registrar ?? '___'}</TableCell>
-                  <TableCell>{moment(row.expiresOn).format('D/MM/Y H:m')}</TableCell>
-                  <TableCell>{moment(row.launchDate).format('D/MM/Y H:m')}</TableCell>
-                  <TableCell>{row.lastUpdatedAt ? moment(row.lastUpdatedAt).format('D/MM/Y H:m') : '___'}</TableCell>
-                  <TableCell>{moment(row.createdAt).format('D/MM/Y H:m')}</TableCell>
+                  <TableCell>{moment(row.expiresOn).format('DD/MM/Y HH:mm')}</TableCell>
+                  <TableCell>{moment(row.launchDate).format('DD/MM/Y HH:mm')}</TableCell>
+                  <TableCell>{row.lastUpdatedAt ? moment(row.lastUpdatedAt).format('DD/MM/Y HH:mm') : '___'}</TableCell>
+                  <TableCell>{moment(row.createdAt).format('DD/MM/Y HH:mm')}</TableCell>
                 </TableRow>
             ))}
           </TableBody>

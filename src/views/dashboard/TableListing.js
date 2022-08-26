@@ -1,28 +1,14 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Chip from '@mui/material/Chip'
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import { useState, useEffect } from 'react'
 import DomainListingRemove from '../tables/DomainListingRemove'
-import { ConsoleNetworkOutline } from 'mdi-material-ui'
-import { CollectionsOutlined } from '@mui/icons-material'
 import fetchOptions from 'src/configs/fetchOptions'
-
-
-const statusObj = {
-  true: { color: 'info' },
-  false: { color: 'error' },
-  current: { color: 'primary' },
-  resigned: { color: 'warning' },
-  professional: { color: 'success' }
-}
 
 const TableListing = (props) => {
   const [data, setData] = useState(null)
@@ -30,9 +16,12 @@ const TableListing = (props) => {
   let filter = ''
   switch (props.domainType) {
     case 'isOwned':
-      filter = "?isOwned=true"
+      filter = '?attemptMade=true&isOwned=true&boughtOn=DESC'
       break;
-  
+
+    case 'isLost':
+      filter = '?attemptMade=true&isOwned=false'
+
     default:
       break;
   }
@@ -42,8 +31,7 @@ const TableListing = (props) => {
     fetch(`${process.env.NEXT_APP_API_URL}api/domains${filter}`, fetchOptions)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        setData(data['hydra:member'])
+        setData(data.response.data)
         setLoading(false)
       })
   }, [setLoading])
@@ -57,27 +45,25 @@ const TableListing = (props) => {
   }
 
   if (isLoading) return <p>Loading...</p>
-  if (!data) return <p>No profile data</p>
+  if (!data || 0 === data.length) return <p>No profile data</p>
   return (
     <Card>
       <TableContainer>
-        
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
               <TableCell>Nom</TableCell>
-              <TableCell>Statut</TableCell>
-              <TableCell>Heure de connection</TableCell>
-              <TableCell>Verrouillé</TableCell>
-              <TableCell>Dernière MAJ</TableCell>
+              <TableCell>Registrar</TableCell>
               <TableCell>Date d'expiration</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Date de lancement</TableCell>
+              <TableCell>Date d'achat</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { 
-              data.map(row => (
-                <DomainListingRemove domain={row} handleRemoveItem={handleRemoveItem} />
+            {
+              data.map((row, index) => (
+                <DomainListingRemove key={index} domain={row} handleRemoveItem={handleRemoveItem} />
               ))
             }
           </TableBody>
