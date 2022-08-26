@@ -27,7 +27,7 @@ const FormLayoutsBasic = () => {
 
   const fetchData = useCallback(async (domainName) => {
     let response = await axios.get(`${process.env.NEXT_APP_API_URL}api/domains/whois?domainName=${domainName}`, axiosOptions)
-    setFetchedData(fetchedData => [{ ...response.data.response.data, name: domainName }, ...fetchedData])
+    setFetchedData(fetchedData => [response.data.response.data, ...fetchedData])
     setDomainName('')
   }, [])
 

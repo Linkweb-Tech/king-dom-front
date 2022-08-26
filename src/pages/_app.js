@@ -64,10 +64,10 @@ const App = props => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`${themeConfig.templateName} - King Dom`}</title>
+        <title>{`${themeConfig.templateName} - Application`}</title>
         <meta
           name='description'
-          content={`${themeConfig.templateName} – King Dom`}
+          content={`${themeConfig.templateName} - Application`}
         />
         <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
