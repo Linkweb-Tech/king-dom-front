@@ -23,7 +23,7 @@ const DomainListingRemove = (props) => {
     
     const fetchData = useCallback(async (domain) => {
         let response = await axios.delete(
-            `${process.env.NEXT_PUBLIC_API_URL}api/domains/${domain.id}`)
+            `${process.env.NEXT_APP_API_URL}api/domains/${domain.id}`)
             .then((response) =>{
                 if(response.status === 204){
                     console.log('204')

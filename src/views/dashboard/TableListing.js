@@ -35,10 +35,10 @@ const TableListing = (props) => {
     default:
       break;
   }
-  console.log(`${process.env.NEXT_PUBLIC_API_URL}api/domains${filter}`)
+  console.log(`${process.env.NEXT_APP_API_URL}api/domains${filter}`)
   useEffect(() => {
     //setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains${filter}`)
+    fetch(`${process.env.NEXT_APP_API_URL}api/domains${filter}`)
       .then(res => res.json())
       .then(data => {
         console.log(data)

@@ -35,7 +35,7 @@ const FormLayoutsBasic = () => {
   const fetchData = useCallback(async (keywords) => {
     
     let response = await axios.post(
-       `${process.env.NEXT_PUBLIC_API_URL}whois?domain=${keywords}`
+       `${process.env.NEXT_APP_API_URL}whois?domain=${keywords}`
       )
       //setFetchedData(fetchedData.concat(response.data))
       setFetchedData(fetchedData => [response.data, ...fetchedData])

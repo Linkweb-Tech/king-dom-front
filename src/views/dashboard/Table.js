@@ -26,7 +26,7 @@ const DashboardTable = () => {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}api/domains`)
+    fetch(`${process.env.NEXT_APP_API_URL}api/domains`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
