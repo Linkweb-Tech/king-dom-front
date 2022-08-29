@@ -7,6 +7,10 @@ module.exports = {
     NEXT_APP_API_URL: process.env.NEXT_APP_API_URL,
     NEXT_APP_API_KEY: process.env.NEXT_APP_API_KEY,
   },
+  images: {
+    loader: 'imgix',
+    path: '/',
+  },
   experimental: {
     esmExternals: false,
     jsconfigPaths: true // enables it for both jsconfig.json and tsconfig.json
